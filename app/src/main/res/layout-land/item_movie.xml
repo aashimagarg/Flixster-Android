@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <ImageView
         android:layout_width="wrap_content"
@@ -17,25 +18,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ivRated"
-        android:layout_toLeftOf="@+id/tvTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/toprated"
-        android:layout_alignBottom="@+id/ivPoster" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFF"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="Captain America: Civil War"
-        android:id="@+id/tvTitle"
-        android:textSize="26sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/ivPoster" />
+        android:layout_alignBottom="@+id/ivPoster"
+        android:layout_toLeftOf="@+id/tvOverview"
+        android:layout_toStartOf="@+id/tvOverview"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,14 +34,39 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="Set in a near future, technology-reliant society that pits man against killing machines. Against this backdrop an elite army unit is helicoptered to a remote, off-the-grid island training facility. What starts out as a simple training exercise for Captain Bukes and his tight-knit unit, descends into a terrifying battle to the death, as the marines discover the island is overrun by an enemy that transcends the human concept of evil."
         android:id="@+id/tvOverview"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_toEndOf="@+id/ivPoster"
-        android:layout_below="@+id/tvTitle"
-        android:layout_toRightOf="@+id/ivPoster"
         android:maxLines="6"
-        android:ellipsize="end"/>
+        android:ellipsize="end"
+        android:layout_below="@+id/view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/ivPoster"
+        android:layout_toEndOf="@+id/ivPoster" />
 
+    <me.grantland.widget.AutofitLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivPoster"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/view">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFF"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="Captain America: Civil War"
+        android:id="@+id/tvTitle"
+        android:textSize="26sp"
+        autofit:minTextSize="16sp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/ivPoster"
+        android:layout_toEndOf="@+id/ivPoster" />
+    </me.grantland.widget.AutofitLayout>
 </RelativeLayout>
