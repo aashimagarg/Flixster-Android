@@ -15,6 +15,7 @@ public class Movie {
     public String posterUrl;
     public String overview;
     public String backdrop;
+    public int rating;
 
     //CMD+N shortcut to generate constructor
     public Movie(JSONObject jsonObject) throws JSONException {
@@ -22,6 +23,7 @@ public class Movie {
         this.posterUrl = jsonObject.getString("poster_path");
         this.overview = jsonObject.getString("overview");
         this.backdrop = jsonObject.getString("backdrop_path");
+        this.rating = jsonObject.getInt("vote_average");
     }
 
 
@@ -53,6 +55,10 @@ public class Movie {
 
     public String getBackdrop() {
         return String.format("http://image.tmdb.org/t/p/w780/%s", backdrop);
+    }
+
+    public int getRating() {
+        return rating;
     }
 
 }
