@@ -1,5 +1,6 @@
 package com.example.aashimagarg.flixter;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ public class MoviesActivity extends AppCompatActivity {
     MoviesAdapter movieAdapter;
     ListView lvItems;
     ImageView toprated;
+    private final int REQUEST_CODE = 20;
     private SwipeRefreshLayout swipeContainer;
     AsyncHttpClient client = new AsyncHttpClient();
     String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
@@ -50,7 +54,6 @@ public class MoviesActivity extends AppCompatActivity {
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
         lvItems = (ListView) findViewById(R.id.lvMovies);
-        toprated = (ImageView) findViewById(R.id.ivRated);
         movies = new ArrayList<>();
         movieAdapter = new MoviesAdapter(this, movies);
         lvItems.setAdapter(movieAdapter);
@@ -95,6 +98,23 @@ public class MoviesActivity extends AppCompatActivity {
                 fetchTimelineAsync(0);
             }
         });
+
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // first parameter is the context, second is the class of the activity to launch
+                Intent i = new Intent(MoviesActivity.this, DetailsActivity.class);
+
+                i.putExtra("title", movies.get(position).getTitle());
+                i.putExtra("overview", movies.get(position).getOverview());
+                i.putExtra("poster", movies.get(position).getPosterUrl());
+                i.putExtra("rating", movies.get(position).getRating());
+                i.putExtra("date", movies.get(position).getDate());
+
+                startActivityForResult(i, REQUEST_CODE); // brings up the second activity
+            }
+        });
+
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -132,7 +152,6 @@ public class MoviesActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public void onStart() {
